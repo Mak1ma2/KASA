@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!-- 
+    USFCA KASA Website 
+    @Mak1ma2 
+
+    why did I do all the style / script in one file? because I want to kms 
+-->
 <html lang="en"> 
     <head>
         <meta charset="utf-8"/>
@@ -6,6 +12,7 @@
         <title>USFCA KASA</title>
         <link rel="shortcut icon" href="/KASA pfp.jpg"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap'); 
             @font-face {
@@ -32,52 +39,148 @@
             }
 
             div.dropdown-container { 
-                display: inline-block; 
-                width: 75px; 
-                right: 0; 
-                top: 45px;
-                position: fixed; 
+                position: relative; 
+                max-width: 100%; 
+                text-align: center; 
             }
 
-            div.dropdown-container.show > div.dropdown-contents {
-                transform: scaleY(1);
-                -ms-transform: scaleY(1);
-                -webkit-transform: scaleY(1);
-                -o-transform: scaleY(1);
+            .dropdown { 
+                display: none; 
             }
 
-            div.dropdown-container > div.dropdown-contents {
-                float: left;
+            [type="checkbox"]:checked, [type="checbox"]:not(:checked) { 
+                position: absolute;  
+                left: -9999px; 
+                opacity: 0; 
+                pointer-events: none;
+            }
+
+            .dropdown:checked + label,
+            .dropdown:not(:checked) + label{
+                margin-top: 15px; 
+                margin-left: 5em; 
                 position: relative;
-                width: 100%;
-                transform: scaleY(0);
-                -webkit-transform: scaleY(0);
-                -o-transform: scaleY(0);
-                -moz-transform: scaleY(0);
-                -webkit-transition: -webkit-transform .25s ease;
-                transition: -webkit-transform .25s ease;
-                -webkit-transition: transform .25s ease;
-                transition: transform .25s ease;
-            }
-
-            div.dropdown-container > div.dropdown-contents> a {
-                position: relative;
-                font-size: 14px;
-                width: 100%;
-                z-index: 2;
+                font-family: 'Roboto', sans-serif;
+                font-weight: 500;
+                font-size: 24px;
+                line-height: 2;
+                height: 40px;
+                transition: all 200ms linear;
+                border-radius: 50%;
+                width: 40px;
+                letter-spacing: 1px;
+                display: -webkit-inline-flex;
+                display: -ms-inline-flexbox;
+                display: inline-flex;
+                -webkit-align-items: center;
+                -moz-align-items: center;
+                -ms-align-items: center;
+                align-items: center;
+                -webkit-justify-content: center;
+                -moz-justify-content: center;
+                -ms-justify-content: center;
+                justify-content: center;
+                -ms-flex-pack: center;
+                text-align: center;
+                border: none;
+                background-color: black;
                 cursor: pointer;
-                background: #fff;
-                padding-right: 34px;
-                padding-left: 10px;
+                color: white;
+                box-shadow: 0 12px 35px 0 rgba(255,235,167,.15);
             }
 
-            div.dropdown-display { 
-                display: inline-block; 
-                cursor: pointer; 
+            .dropdown:checked + label:before,
+            .dropdown:not(:checked) + label:before{
+                position: fixed;
+                top: 0;
+                left: 0;
+                content: '';
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                cursor: auto;
+                pointer-events: none;
             }
 
-            div.dropdown-container > div.dropdown-contents > div > div:hover {
-                background: #f0f0f0;
+            .dropdown:checked + label:before{
+                pointer-events: auto;
+            }
+            .dropdown:not(:checked) + label .uil {
+                font-size: 24px;
+                margin-left: 2px;
+                transition: transform 200ms linear;
+            }
+            .dropdown:checked + label .uil {
+                transform: rotate(180deg);
+                font-size: 24px;
+                margin-left: 2px;
+                transition: transform 200ms linear;
+            }
+
+            .dropdown:checked + label .dropdown-contents { 
+                display: block;  
+            }
+
+            .dropdown-contents { 
+                position: absolute; 
+                padding: 5px; 
+                background-color: black; 
+                top: 90%; 
+                left: 0; 
+                width: 150px; 
+                border-radius: 4px;
+                display: block; 
+                box-shadow: 0 14px 35px 0 rgba(9, 9, 12, 0.4);
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(20px);
+                transition: all 200ms linear;
+            }
+
+            .dropdown-contents a { 
+                color: white; 
+                font-family: 'Roboto', sans-serif;
+                font-weight: bold; 
+                text-align: center;
+                text-decoration: none;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-align-items: center;
+                -moz-align-items: center;
+                -ms-align-items: center;
+                align-items: center;
+                justify-content: space-between;
+                -ms-flex-pack: distribute;
+                margin: 10px 0; 
+            }
+
+            .dropdown-contents a:hover { 
+                color: black;
+                background-color: white; 
+            }
+
+            .dropdown:checked ~ .dropdown-contents { 
+                opacity: 1; 
+                pointer-events: auto;
+                transform: translateY(0);
+            }
+
+            .dropdown-contents:before { 
+                position: absolute; 
+                top: -20px; 
+                left: 0; 
+                width: 100%; 
+                height: 20px; 
+                content: ''; 
+                display: block; 
+            }
+
+            .dropdown-contents:after { 
+                position: absolute; 
+                top: -7px; 
+                left: 30px; 
+                width: 0; 
+                height: 0; 
             }
 
             header { 
@@ -177,6 +280,8 @@
                 }   
 
                 .logo-img { 
+                    width: 70px; 
+                    height: 70px; 
                     margin-left: -450px; 
                 }
             }
@@ -348,6 +453,13 @@
                 display: inline-block; 
             }
 
+            @media (max-width: 1025px) { 
+                .instagramPosts h2, .eventPosts h2 { 
+                    width: 100%; 
+                    padding: 10px; 
+                }
+            }
+
             .welcomeText { 
                 position: relative; 
                 display: flex; 
@@ -409,9 +521,8 @@
                 <div class="small-nav"> 
                     <img class="logo-img" src="KASA pfp.jpg" alt="KASA Logo"/>
                     <div class="dropdown-container">
-                        <div class="dropdown-display">
-                            <img src="dropdown menu.jpg" alt="KASA Logo" width="50px" height="50px"/>
-                        </div>
+                        <input class="dropdown" type="checkbox" id="dropdown-checkbox"/>
+                        <label class="dropdown-arrow" for="dropdown-checkbox"><i class="uil uil-arrow-down"></i></label>
                         <div class="dropdown-contents">
                             <a href="/">Home</a>
                             <a href="/about">About Us</a>
