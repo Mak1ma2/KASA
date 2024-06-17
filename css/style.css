@@ -493,6 +493,7 @@ hr {
     color: white; 
     background-color: #3a3a3a;
     height: 500px; 
+    border-radius: 5px;
 }
 
 .welcomeText { 
